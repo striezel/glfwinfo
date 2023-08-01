@@ -1,0 +1,31 @@
+name: Clang
+
+on: push
+
+jobs:
+  clang:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        version: [11, 12, 13, 14]
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Debian packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang-${{ matrix.version }} libgl-dev libglfw3-dev pkg-config
+      - name: Build with Clang ${{ matrix.version }}
+        run: |
+          export CXX=clang++-${{ matrix.version }}
+          export CC=clang-${{ matrix.version }}
+          cd $GITHUB_WORKSPACE
+          mkdir build
+          cd build
+          cmake ../
+          make -j2
+      - name: Tests
+        run: |
+          cd "$GITHUB_WORKSPACE"/build
+          ctest -V
