@@ -30,7 +30,7 @@ const int rcGlfwError = 2;
 
 void showVersion()
 {
-  std::cout << "glfwinfo, version 0.1.0, 2023-08-02\n";
+  std::cout << "glfwinfo, version 0.2.0, 2023-08-02\n";
 }
 
 void showHelp()
@@ -40,12 +40,14 @@ void showHelp()
             << "Shows information about the current system using GLFW.\n"
             << "\n"
             << "options:\n"
-            << "  -? | --help     - Shows this help message.\n"
-            << "  -v | --version  - Shows version information.\n";
+            << "  -? | --help        - Shows this help message.\n"
+            << "  -v | --version     - Shows version information.\n"
+            << "  --skip-video-modes - Do not show available video modes of monitors.\n";
 }
 
 int main(int argc, char** argv)
 {
+  VideoModes video_modes = VideoModes::Show;
   if ((argc > 1) && (argv != nullptr))
   {
     for (int i = 1; i < argc; ++i)
@@ -65,6 +67,15 @@ int main(int argc, char** argv)
       {
         showHelp();
         return 0;
+      }
+      else if ((param == "--skip-video-modes") || (param == "--no-video-modes"))
+      {
+        if (video_modes == VideoModes::Skip)
+        {
+          std::cerr << "Error: " << param << " was specified more than once.\n";
+          return rcInvalidParameter;
+        }
+        video_modes = VideoModes::Skip;
       }
       else
       {
@@ -94,7 +105,7 @@ int main(int argc, char** argv)
   glfwMakeContextCurrent(offscreen);
   show_open_gl_info();
 
-  show_monitors();
+  show_monitors(video_modes);
 
   glfwDestroyWindow(offscreen);
   glfwTerminate();

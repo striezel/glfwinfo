@@ -93,15 +93,57 @@ void show_monitor_work_area(GLFWmonitor* mon, const std::string_view indentation
               << ", Width = " << width << ", Height = " << height << '\n';
 }
 
-void show_monitor(GLFWmonitor* mon, const std::string_view indentation)
+void show_video_mode(const GLFWvidmode mode, const std::string_view indentation)
+{
+  std::cout << '\n' << indentation
+            << mode.width << " x " << mode.height << ", ";
+  const int total_bits = mode.redBits + mode.greenBits + mode.blueBits;
+  std::cout << total_bits << " bits colour depth (R" << mode.redBits << "/G"
+            << mode.greenBits << "/B" << mode.blueBits << "), "
+            << mode.refreshRate << " Hz";
+}
+
+void show_video_modes(GLFWmonitor* mon, const std::string_view indentation)
+{
+  std::cout << indentation << "Video modes: ";
+  int count = -1;
+  const auto modes = glfwGetVideoModes(mon, &count);
+  if (modes == nullptr)
+  {
+    std::cout << " none found\n";
+    return;
+  }
+  std::cout << count << " modes found";
+
+  const auto new_indentation = std::string("    ").append(indentation);
+  for (int i = 0; i < count; ++i)
+  {
+    show_video_mode(modes[i], new_indentation);
+  }
+  std::cout << "\n" << indentation << "Current video mode: ";
+  const auto current_mode = glfwGetVideoMode(mon);
+  if (current_mode == nullptr)
+  {
+    std::cout << " unknown\n";
+    return;
+  }
+  show_video_mode(*current_mode, new_indentation);
+  std::cout << '\n';
+}
+
+void show_monitor(GLFWmonitor* mon, const std::string_view indentation, const VideoModes video_modes)
 {
   show_monitor_name(mon, indentation);
   show_monitor_size(mon, indentation);
   show_monitor_position(mon, indentation);
   show_monitor_work_area(mon, indentation);
+  if (video_modes == VideoModes::Show)
+  {
+    show_video_modes(mon, indentation);
+  }
 }
 
-void show_monitors()
+void show_monitors(const VideoModes video_modes)
 {
   std::cout << "Monitors:\n";
   int count = 0;
@@ -116,6 +158,6 @@ void show_monitors()
   for (int i = 0; i < count; ++i)
   {
     std::cout << "\nMonitor " << (i + 1) << ":\n";
-    show_monitor(monitors[i], "    ");
+    show_monitor(monitors[i], "    ", video_modes);
   }
 }

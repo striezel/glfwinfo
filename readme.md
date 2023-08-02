@@ -61,8 +61,9 @@ glfwinfo [OPTIONS]
 Shows information about the current system using GLFW.
 
 options:
-  -? | --help     - Shows this help message.
-  -v | --version  - Shows version information.
+  -? | --help        - Shows this help message.
+  -v | --version     - Shows version information.
+  --skip-video-modes - Do not show available video modes of monitors.
 ```
 
 ## History of changes

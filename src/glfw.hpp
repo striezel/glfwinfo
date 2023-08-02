@@ -23,7 +23,7 @@
 
 #include <string>
 
-/** \brief Gets the WebP library version.
+/** \brief Gets the GLFW library version.
  *
  * \return Returns a string containing the GLFW version, e.g. "1.2.3".
  */
@@ -35,8 +35,20 @@ std::string glfw_version();
  */
 void show_open_gl_info();
 
+/// Enumeration for video mode settings
+enum class VideoModes
+{
+    /// Video modes are shown for each monitor, too.
+    Show,
+
+    /// Video mode listing is skipped for each monitor.
+    Skip
+};
+
 /** \brief Show information about all monitors on standard output.
+ *
+ * \param video_modes  indicates whether video modes for monitors are shown, too
  */
-void show_monitors();
+void show_monitors(const VideoModes video_modes);
 
 #endif // GLFWINFO_GLFW_HPP
