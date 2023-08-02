@@ -69,8 +69,10 @@ void show_monitor_position(GLFWmonitor* mon, const std::string_view indentation)
   std::cout << indentation << "Virtual position: ";
   int x = -1;
   int y = -1;
+  (void) glfwGetError(nullptr); // clears any previous error codes
   glfwGetMonitorPos(mon, &x, &y);
-  if ((x == 0) && (y == 0))
+  const int error_code = glfwGetError(nullptr);
+  if ((error_code != GLFW_NO_ERROR) && (x == 0) && (y == 0))
     std::cout << "unknown\n";
   else
     std::cout << "X = " << x << ", Y = " << y << '\n';

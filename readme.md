@@ -65,6 +65,10 @@ options:
   -v | --version  - Shows version information.
 ```
 
+## History of changes
+
+A changelog is provided as [separate file](./changelog.md).
+
 ## Copyright and Licensing
 
 Copyright 2023  Dirk Stolle
