@@ -1,0 +1,29 @@
+# Build with GCC.
+build_gcc:
+  image: debian:12-slim
+  stage: test
+  before_script:
+    - apt-get update && apt-get -y upgrade
+    - apt-get install -y cmake g++ git libgl-dev libglfw3-dev pkg-config
+    - export CC=gcc && export CXX=g++
+  script:
+    - mkdir ./build
+    - cd ./build
+    - cmake ../
+    - make -j2
+    - ctest -V
+
+# Build with Clang / Clang++.
+build_clang:
+  image: debian:12-slim 
+  stage: test
+  before_script:
+    - apt-get update && apt-get -y upgrade
+    - apt-get install -y cmake clang git libgl-dev libglfw3-dev pkg-config
+    - export CC=clang && export CXX=clang++
+  script:
+    - mkdir ./build
+    - cd ./build
+    - cmake ../
+    - make -j2
+    - ctest -V
