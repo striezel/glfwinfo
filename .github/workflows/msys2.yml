@@ -54,3 +54,23 @@ jobs:
           export MSYSTEM=MINGW64
           cd "$GITHUB_WORKSPACE"/build_static_std_libs
           ctest -V
+      - name: Gather build artifacts
+        run: |
+          export MSYSTEM=MINGW64
+          cd "$GITHUB_WORKSPACE"
+          mkdir artifacts
+          ./ci/copy-dll-dependencies.sh build_static_std_libs/src/glfwinfo.exe artifacts/
+          cp LICENSE artifacts/
+          cp readme.md artifacts/
+          cp changelog.md artifacts/
+          cp documentation/third-party.md artifacts/
+          VERSION=$(git describe --always)
+          mv artifacts glfwinfo_${VERSION}
+          '/c/Program Files/7-Zip/7z.exe' a -r glfwinfo_${VERSION}.zip glfwinfo_${VERSION}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: glfwinfo-windows-msys2
+          if-no-files-found: error
+          path: |
+            glfwinfo*.zip
