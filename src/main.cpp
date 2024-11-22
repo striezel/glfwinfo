@@ -30,7 +30,7 @@ const int rcGlfwError = 2;
 
 void showVersion()
 {
-  std::cout << "glfwinfo, version 0.2.0, 2023-08-02\n"
+  std::cout << "glfwinfo, version 0.2.1, 2024-11-22\n"
             << '\n'
             << "Copyright (C) 2023 - 2024  Dirk Stolle\n"
             << "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
