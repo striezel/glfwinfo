@@ -11,3 +11,6 @@ Package: glfwinfo
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shows information about GLFW.
+ glfwinfo shows information like the GLFW version that is in use, the OpenGL
+ renderer and version, available monitors and their corresponding size, work
+ area and video modes.
