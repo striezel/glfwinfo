@@ -36,8 +36,8 @@ package_debian:
   script:
     - export GITLAB_CI=true
     - ./ci/02-create-package.sh
-#  only:
-#    - tags
+  only:
+    - tags
   artifacts:
     paths:
       - "glfwinfo*.deb"
