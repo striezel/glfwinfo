@@ -27,3 +27,17 @@ build_clang:
     - cmake ../
     - make -j2
     - ctest -V
+
+package_debian:
+  image: debian:12-slim
+  stage: build
+  before_script:
+    - ./ci/01-install-dependencies.sh
+  script:
+    - export GITLAB_CI=true
+    - ./ci/02-create-package.sh
+#  only:
+#    - tags
+  artifacts:
+    paths:
+      - "glfwinfo*.deb"
