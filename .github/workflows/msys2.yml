@@ -11,7 +11,7 @@ jobs:
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: msys2/setup-msys2@v2
@@ -70,7 +70,7 @@ jobs:
           mv artifacts glfwinfo_${VERSION}
           '/c/Program Files/7-Zip/7z.exe' a -r glfwinfo_${VERSION}.zip glfwinfo_${VERSION}
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: glfwinfo-windows-msys2
           if-no-files-found: error

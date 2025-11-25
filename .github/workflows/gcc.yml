@@ -24,7 +24,7 @@ jobs:
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Debian packages
         run: |
           sudo apt-get update
