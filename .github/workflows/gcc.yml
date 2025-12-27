@@ -25,6 +25,8 @@ jobs:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Install Debian packages
         run: |
           sudo apt-get update
