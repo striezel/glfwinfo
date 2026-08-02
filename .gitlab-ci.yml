@@ -1,6 +1,6 @@
 # Build with GCC.
 build_gcc:
-  image: debian:12-slim
+  image: debian:13-slim
   stage: test
   before_script:
     - apt-get update && apt-get -y upgrade
@@ -15,7 +15,7 @@ build_gcc:
 
 # Build with Clang / Clang++.
 build_clang:
-  image: debian:12-slim 
+  image: debian:13-slim
   stage: test
   before_script:
     - apt-get update && apt-get -y upgrade
@@ -29,7 +29,7 @@ build_clang:
     - ctest -V
 
 package_debian:
-  image: debian:12-slim
+  image: debian:13-slim
   stage: build
   before_script:
     - ./ci/01-install-dependencies.sh
