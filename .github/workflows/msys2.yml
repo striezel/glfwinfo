@@ -71,9 +71,10 @@ jobs:
           mv artifacts glfwinfo_${VERSION}
           '/c/Program Files/7-Zip/7z.exe' a -r glfwinfo_${VERSION}.zip glfwinfo_${VERSION}
       - name: Upload artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: glfwinfo-windows-msys2
           if-no-files-found: error
           path: |
             glfwinfo*.zip
+          archive: false
